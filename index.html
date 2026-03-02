@@ -5,11 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coxinha City | Servidor Oficial</title>
 
-<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+<!-- Fonte pixel mais leve -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+<!-- MUSICA -->
+<audio id="bgm" loop>
+  <source src="fungo.mp3" type="audio/mpeg">
+</audio>
 
 <header>
   <div class="logo">COXINHA CITY</div>
@@ -28,31 +35,46 @@
     <h1>COXINHA CITY</h1>
     <p>Economia • Empresas • Mods • PIX • Veículos</p>
     <button onclick="copyIP()" class="copy-ip">Copiar IP</button>
-
-    <!-- GIF -->
-    <div class="gif-box">
-      <div class="tenor-gif-embed"
-        data-postid="6517990275004061626"
-        data-share-method="host"
-        data-aspect-ratio="0.638554"
-        data-width="100%">
-      </div>
-    </div>
+    <button onclick="toggleMusic()" class="music-btn">🔊 Música</button>
   </div>
 </section>
 
-<section id="vip">
+<section id="vip" class="center-section">
   <h2>PLANOS VIP</h2>
+  <div class="vip-container">
+
+    <div class="vip-card">
+      <h3>VIP 1</h3>
+      <p>+8 Terrenos</p>
+      <p>+$300.000</p>
+      <p>Prioridade Entrada</p>
+    </div>
+
+    <div class="vip-card destaque">
+      <h3>VIP 2</h3>
+      <p>Tudo do VIP 1</p>
+      <p>+15 Terrenos</p>
+      <p>Loja VIP</p>
+    </div>
+
+    <div class="vip-card">
+      <h3>VIP 3</h3>
+      <p>Tudo do VIP 1 e 2</p>
+      <p>+25 Terrenos</p>
+      <p>TAG Personalizada</p>
+    </div>
+
+  </div>
 </section>
 
-<section id="comprar">
+<section id="comprar" class="center-section">
   <h2>Como Comprar?</h2>
-  <div class="comando">/comprar</div>
+  <div class="box">/comprar</div>
 </section>
 
-<section id="otimizacao">
+<section id="otimizacao" class="center-section">
   <h2>Otimização</h2>
-  <a href="config.txt" download class="download-btn">Baixar Config</a>
+  <a href="config.txt" download class="download-btn">Baixar Configuração</a>
 </section>
 
 <a href="https://discord.com/invite/DqV94NrHJb"
@@ -64,6 +86,5 @@
 <footer>© 2026 Coxinha City</footer>
 
 <script src="script.js"></script>
-<script async src="https://tenor.com/embed.js"></script>
 </body>
 </html>
