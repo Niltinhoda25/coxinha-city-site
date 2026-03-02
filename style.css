@@ -22,6 +22,10 @@ z-index:1000;
 box-sizing:border-box;
 }
 
+.logo{
+font-size:14px;
+}
+
 nav{
 display:flex;
 gap:20px;
@@ -68,20 +72,30 @@ position:relative;
 z-index:2;
 max-width:800px;
 margin:auto;
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
 .hero h1{
-font-size:30px;
+font-size:28px;
 color:#00ff00;
+margin-bottom:15px;
 }
 
 .hero p{
-font-size:12px;
-margin-top:15px;
+font-size:10px;
+margin-bottom:20px;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
 }
 
 .copy-ip, .music-btn{
-margin-top:20px;
 padding:10px 15px;
 background:#00ff00;
 border:none;
@@ -92,9 +106,27 @@ font-size:10px;
 
 .music-btn{
 background:#ffaa00;
-margin-left:10px;
 }
 
+.copy-ip:hover{
+background:#00cc00;
+}
+
+/* GIF */
+.gif-box{
+margin-top:40px;
+width:280px;
+display:flex;
+justify-content:center;
+}
+
+.tenor-gif-embed{
+max-width:100%;
+border:3px solid #00ff00;
+box-shadow:0 0 15px #00ff00;
+}
+
+/* SEÇÕES */
 .center-section{
 padding:120px 20px;
 max-width:900px;
@@ -143,6 +175,7 @@ text-decoration:none;
 font-size:10px;
 }
 
+/* DISCORD */
 .discord-btn{
 position:fixed;
 bottom:20px;
