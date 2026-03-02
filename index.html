@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coxinha City | Servidor Oficial</title>
 
-<!-- Fonte pixel mais leve -->
+<!-- Fonte pixel legível -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
 
 <body>
 
-<!-- MUSICA -->
+<!-- Música -->
 <audio id="bgm" loop>
   <source src="fungo.mp3" type="audio/mpeg">
 </audio>
@@ -34,13 +34,28 @@
   <div class="hero-content">
     <h1>COXINHA CITY</h1>
     <p>Economia • Empresas • Mods • PIX • Veículos</p>
-    <button onclick="copyIP()" class="copy-ip">Copiar IP</button>
-    <button onclick="toggleMusic()" class="music-btn">🔊 Música</button>
+
+    <div class="buttons">
+      <button onclick="copyIP()" class="copy-ip">Copiar IP</button>
+      <button onclick="toggleMusic()" class="music-btn">🔊 Música</button>
+    </div>
+
+    <!-- GIF -->
+    <div class="gif-box">
+      <div class="tenor-gif-embed"
+           data-postid="6517990275004061626"
+           data-share-method="host"
+           data-aspect-ratio="0.638554"
+           data-width="100%">
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section id="vip" class="center-section">
   <h2>PLANOS VIP</h2>
+
   <div class="vip-container">
 
     <div class="vip-card">
@@ -86,5 +101,6 @@
 <footer>© 2026 Coxinha City</footer>
 
 <script src="script.js"></script>
+<script async src="https://tenor.com/embed.js"></script>
 </body>
 </html>
