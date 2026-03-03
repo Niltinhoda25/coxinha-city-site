@@ -5,15 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coxinha City | Servidor Oficial</title>
 
-<!-- Fonte pixel mais leve -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- MUSICA -->
 <audio id="bgm" loop>
   <source src="fungo.mp3" type="audio/mpeg">
 </audio>
@@ -22,69 +19,111 @@
   <div class="logo">COXINHA CITY</div>
   <nav>
     <a href="#vip">VIP</a>
-    <a href="#comprar">Como Comprar</a>
-    <a href="#otimizacao">Otimização</a>
+    <a href="#economia">Economia</a>
+    <a href="#pagamentos">Pagamentos</a>
+    <a href="#modlist">Modlist</a>
   </nav>
 </header>
 
 <section class="hero">
-  <canvas id="particles"></canvas>
   <div class="overlay"></div>
 
   <div class="hero-content">
     <h1>COXINHA CITY</h1>
     <p>Economia • Empresas • Mods • PIX • Veículos</p>
-    <button onclick="copyIP()" class="copy-ip">Copiar IP</button>
-    <button onclick="toggleMusic()" class="music-btn">🔊 Música</button>
+
+    <div class="buttons">
+      <button onclick="copyIP()" class="copy-ip">Copiar IP</button>
+      <button onclick="toggleMusic()" class="music-btn">🔊 Música</button>
+    </div>
+
+    <div class="gif-box">
+      <div class="tenor-gif-embed"
+           data-postid="6517990275004061626"
+           data-share-method="host"
+           data-aspect-ratio="0.638554"
+           data-width="180">
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="vip" class="center-section">
-  <h2>PLANOS VIP</h2>
-  <div class="vip-container">
-
-    <div class="vip-card">
-      <h3>VIP 1</h3>
-      <p>+8 Terrenos</p>
-      <p>+$300.000</p>
-      <p>Prioridade Entrada</p>
-    </div>
-
-    <div class="vip-card destaque">
-      <h3>VIP 2</h3>
-      <p>Tudo do VIP 1</p>
-      <p>+15 Terrenos</p>
-      <p>Loja VIP</p>
-    </div>
-
-    <div class="vip-card">
-      <h3>VIP 3</h3>
-      <p>Tudo do VIP 1 e 2</p>
-      <p>+25 Terrenos</p>
-      <p>TAG Personalizada</p>
-    </div>
-
-  </div>
+<section id="vip" class="wiki-section">
+<h2>PLANOS VIP</h2>
+<div class="card">
+VIPs disponíveis dentro do jogo via /comprar
+</div>
 </section>
 
-<section id="comprar" class="center-section">
-  <h2>Como Comprar?</h2>
-  <div class="box">/comprar</div>
+<section id="economia" class="wiki-section">
+<h2>💰 Economia & Capitalismo</h2>
+<div class="card scroll-box">
+<p><b>©️Credits:</b> Criado por Bhoske (github: brunohoske)</p>
+<p>Use /bal para ver saldo</p>
+<p>/pay jogador valor</p>
+<p>/shop create buy ou sell</p>
+<p>/job create nome</p>
+<p>/dividas list</p>
+<p>/historico</p>
+<p>⚠️ Sempre use SHIFT + botão direito para verificar lojas.</p>
+</div>
 </section>
 
-<section id="otimizacao" class="center-section">
-  <h2>Otimização</h2>
-  <a href="config.txt" download class="download-btn">Baixar Configuração</a>
+<section id="pagamentos" class="wiki-section">
+<h2>💳 Pagamentos PIX</h2>
+<div class="card scroll-box">
+<p>Abra com /loja ou /comprar</p>
+<p>Escolha produto</p>
+<p>Gere QR Code</p>
+<p>Pague via Mercado Pago</p>
+<p>Entrega automática</p>
+<p>Prazo 15 minutos</p>
+<p>Apenas PIX</p>
+</div>
 </section>
 
-<a href="https://discord.com/invite/DqV94NrHJb"
-   target="_blank"
-   class="discord-btn">
-   Discord
-</a>
+<section id="modlist" class="wiki-section">
+<h2>📦 MODLIST COXANIS</h2>
+
+<input type="text" id="searchMod" placeholder="🔎 Pesquisar mod..." onkeyup="searchMods()" class="search-box">
+
+<div class="card scroll-box modlist">
+
+<h3>Skills</h3>
+<ul>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/improvable-skills" target="_blank">Improvable Skills</a></li>
+</ul>
+
+<h3>Bosses</h3>
+<ul>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/bosses-of-mass-destruction" target="_blank">Bosses of Mass Destruction</a></li>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/mariums-soulslike-weaponry" target="_blank">Marium's Soulslike Weaponry</a></li>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/lendercataclysm" target="_blank">L_Ender's Cataclysm</a></li>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/bossesrise" target="_blank">Bosse's Rises</a></li>
+</ul>
+
+<h3>Industriais</h3>
+<ul>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/create" target="_blank">Create</a></li>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/mekanism" target="_blank">Mekanism</a></li>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2" target="_blank">AE2</a></li>
+</ul>
+
+<h3>Veículos</h3>
+<ul>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/skate" target="_blank">Skate</a></li>
+<li>Vehicle (Versão editada por Bhoske) → Baixe no Discord</li>
+<li><a href="https://www.curseforge.com/minecraft/mc-mods/mts" target="_blank">Immersive Vehicles</a></li>
+</ul>
+
+</div>
+</section>
+
+<a href="https://discord.com/invite/DqV94NrHJb" target="_blank" class="discord-btn">Discord</a>
 
 <footer>© 2026 Coxinha City</footer>
 
 <script src="script.js"></script>
+<script async src="https://tenor.com/embed.js"></script>
 </body>
 </html>
