@@ -33,6 +33,10 @@ font-size:14px;
 color:#00ff00;
 }
 
+.logo{
+font-size:14px;
+}
+
 nav{
 display:flex;
 gap:30px;
@@ -73,8 +77,16 @@ background:rgba(0,0,0,0.7);
 .hero-content{
 position:relative;
 z-index:2;
+<<<<<<< HEAD
 max-width:900px;
 padding:20px;
+=======
+max-width:800px;
+margin:auto;
+display:flex;
+flex-direction:column;
+align-items:center;
+>>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
 }
 
 .hero h1{
@@ -84,12 +96,18 @@ margin-bottom:15px;
 }
 
 .hero p{
+<<<<<<< HEAD
 font-size:13px;
 margin-bottom:25px;
+=======
+font-size:10px;
+margin-bottom:20px;
+>>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
 }
 
 .buttons{
 display:flex;
+<<<<<<< HEAD
 gap:15px;
 justify-content:center;
 flex-wrap:wrap;
@@ -97,6 +115,16 @@ flex-wrap:wrap;
 
 .copy-ip, .music-btn{
 padding:12px 18px;
+=======
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.copy-ip, .music-btn{
+padding:10px 15px;
+background:#00ff00;
+>>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
 border:none;
 cursor:pointer;
 font-family:'Press Start 2P', cursive;
@@ -111,6 +139,7 @@ color:black;
 
 .music-btn{
 background:#ffaa00;
+<<<<<<< HEAD
 color:black;
 }
 
@@ -123,11 +152,24 @@ transform:scale(1.1);
 
 .gif-box{
 margin-top:35px;
+=======
+}
+
+.copy-ip:hover{
+background:#00cc00;
+}
+
+/* GIF */
+.gif-box{
+margin-top:40px;
+width:280px;
+>>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
 display:flex;
 justify-content:center;
 }
 
 .tenor-gif-embed{
+<<<<<<< HEAD
 width:180px !important;
 border:3px solid #00ff00;
 box-shadow:0 0 12px #00ff00;
@@ -136,6 +178,15 @@ box-shadow:0 0 12px #00ff00;
 /* ===== SEÇÕES ===== */
 
 .wiki-section{
+=======
+max-width:100%;
+border:3px solid #00ff00;
+box-shadow:0 0 15px #00ff00;
+}
+
+/* SEÇÕES */
+.center-section{
+>>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
 padding:120px 20px;
 max-width:1000px;
 margin:auto;
@@ -203,12 +254,16 @@ text-decoration:none;
 transition:0.2s;
 }
 
+<<<<<<< HEAD
 .modlist a:hover{
 color:white;
 }
 
 /* ===== DISCORD ===== */
 
+=======
+/* DISCORD */
+>>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
 .discord-btn{
 position:fixed;
 bottom:20px;
