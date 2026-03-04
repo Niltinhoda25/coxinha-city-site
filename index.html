@@ -5,32 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coxinha City - Servidor do Gabriel</title>
     <style>
-        /* CSS - Estilização Visual */
+        /* IMPORTAÇÃO DA FONTE ESTILO MINECRAFT */
+        /* Se você não tiver o arquivo .ttf, ele usará a fonte padrão do sistema */
+        @font-face {
+            font-family: 'Minecrafter';
+            src: url('minecrafter.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         :root {
             --primary-color: #f39c12;
-            --bg-dark: rgba(0, 0, 0, 0.85);
+            --bg-dark: rgba(0, 0, 0, 0.9);
             --text-color: #e0e0e0;
-            --accent-color: #e74c3c;
             --mc-green: #2ecc71;
+            --warning-red: #e74c3c;
+            --info-blue: #3498db;
+            --zyver-color: #00d2ff;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* CONFIGURAÇÃO DO GIF DE FUNDO */
             background: url('fundo.gif') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-color);
             line-height: 1.6;
         }
 
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.6); /* Camada para escurecer o GIF e facilitar leitura */
-            min-height: 100vh;
+        .overlay { background-color: rgba(0, 0, 0, 0.6); min-height: 100vh; }
+
+        /* MENU DE NAVEGAÇÃO */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 0;
+            z-index: 2000;
         }
 
-        /* PLAYER DE MÚSICA FLUTUANTE */
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .nav-btn:hover { background: var(--primary-color); color: black; }
+
+        /* PLAYER DE MÚSICA */
         #music-player {
             position: fixed;
             bottom: 20px;
@@ -40,7 +77,6 @@
             padding: 15px;
             border-radius: 10px;
             z-index: 1000;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -54,106 +90,124 @@
             cursor: pointer;
             font-weight: bold;
             border-radius: 5px;
-            text-transform: uppercase;
         }
 
-        /* CONTEÚDO PRINCIPAL */
+        /* HEADER E ANIMAÇÃO */
         header {
             text-align: center;
-            padding: 80px 20px;
+            padding: 120px 20px 60px 20px;
             background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
         }
 
-        h1 {
-            font-size: 4.5rem;
+        @keyframes bounceTitle {
+            0%, 100% { transform: translateY(0); text-shadow: 4px 4px 0px #000; }
+            50% { transform: translateY(-10px); text-shadow: 4px 12px 2px rgba(0,0,0,0.5); }
+        }
+
+        h1.minecraft-title {
+            font-family: 'Minecrafter', 'Courier New', Courier, monospace;
+            font-size: 5rem;
             color: var(--primary-color);
-            text-shadow: 4px 4px 0px #000;
             margin: 0;
+            animation: bounceTitle 1.5s ease-in-out infinite;
+            letter-spacing: 3px;
         }
 
         .server-info {
             background: var(--bg-dark);
             display: inline-block;
-            padding: 30px;
+            padding: 25px;
             border-radius: 10px;
             border: 2px solid var(--primary-color);
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .ip-box {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 15px;
             background: #111;
-            padding: 15px;
+            padding: 12px;
             border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            border: 1px dashed #f39c12;
+            font-family: monospace;
             color: #fff;
+            border: 1px dashed var(--primary-color);
         }
 
         .btn-copy {
             background: var(--mc-green);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 25px;
             font-weight: bold;
             cursor: pointer;
             border-radius: 5px;
-            font-size: 1rem;
             width: 100%;
+            transition: 0.2s;
         }
 
+        .btn-copy:hover { transform: scale(1.05); }
+
+        /* CONTEÚDO */
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 40px;
             background: var(--bg-dark);
             border-radius: 15px;
-            margin-bottom: 100px;
-            box-shadow: 0 0 30px rgba(0,0,0,1);
+            margin-bottom: 50px;
+            scroll-margin-top: 100px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
-        h2, h3, h4 { color: var(--primary-color); border-bottom: 1px solid #444; padding-bottom: 10px; }
+        h2, h3, h4 { color: var(--primary-color); border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px; }
         
         .mod-card {
             background: #1a1a1a;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 5px solid var(--primary-color);
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-left: 4px solid var(--primary-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .mod-card a {
-            background: #3498db;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
+        .mod-card a { color: var(--info-blue); text-decoration: none; font-weight: bold; font-size: 0.85rem; }
 
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
-        th { background: #222; }
-
-        .important-alert {
-            background: rgba(192, 57, 43, 0.3);
-            border: 2px solid var(--accent-color);
-            padding: 20px;
-            border-radius: 8px;
+        .important-box {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid var(--warning-red);
+            padding: 15px;
             margin: 20px 0;
+            border-radius: 5px;
         }
 
-        footer { text-align: center; padding: 40px; background: #000; font-size: 0.9rem; }
+        .info-box {
+            background: rgba(52, 152, 219, 0.2);
+            border: 2px solid var(--info-blue);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem; }
+        th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+        th { background-color: #222; color: var(--primary-color); }
+
+        footer { text-align: center; padding: 40px; background: #000; border-top: 2px solid #222; }
+        .zyver-tech { color: var(--zyver-color); font-weight: bold; margin-top: 10px; display: block; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
 <div class="overlay">
+    <nav>
+        <a href="#economia" class="nav-btn">💰 Economia</a>
+        <a href="#pagamentos" class="nav-btn">💳 Pagamentos</a>
+        <a href="#modlist" class="nav-btn">🛠️ Modlist</a>
+    </nav>
+
     <div id="music-player">
-        <span style="font-size: 13px; font-weight: bold;">📻 RÁDIO COXINHA:</span>
+        <span style="font-size: 12px; font-weight: bold;">📻 RÁDIO:</span>
         <button class="music-btn" id="playPauseBtn" onclick="toggleMusic()">Tocar</button>
         <audio id="bgMusic" loop>
             <source src="fungo.mp3" type="audio/mpeg">
@@ -161,57 +215,126 @@
     </div>
 
     <header>
-        <h1>Coxinha City</h1>
-        <p style="font-size: 1.4rem;">Servidor do Gabriel | Forge 1.20.1</p>
-        
+        <h1 class="minecraft-title">Coxinha City</h1>
+        <p style="font-size: 1.2rem;">Servidor do Gabriel | Forge 1.20.1</p>
         <div class="server-info">
-            <div class="ip-box">enx-cirion-106.enx.host:10001</div>
+            <div class="ip-box" id="serverIp">enx-cirion-106.enx.host:10001</div>
             <button class="btn-copy" onclick="copyIp()">COPIAR IP</button>
         </div>
     </header>
 
     <div class="container">
-        <h2>📖 Coxinha City Wiki</h2>
-        <p>Bem-vindo à wiki oficial do servidor <strong>Coxinha City</strong>!</p>
-        <p style="color: var(--accent-color);"><i>Wiki ainda em desenvolvimento!!!</i></p>
+        <div id="economia">
+            <h2>💰 Guia do Jogador — Sistema de Economia</h2>
+            <p>Este guia explica tudo sobre saldo, lojas de baú, negócios e empregos.</p>
+            
+            <h3>Saldo e Pagamentos</h3>
+            <ul>
+                <li>Ver seu saldo: <code>/bal</code></li>
+                <li>Ver ranking: <code>/baltop</code></li>
+                <li>Pagar jogador: <code>/pay <jogador> <valor></code></li>
+            </ul>
 
-        <h3>💰 Economia & Negócios</h3>
-        <table>
-            <tr><th>Comando</th><th>Função</th></tr>
-            <tr><td>/bal</td><td>Ver saldo atual</td></tr>
-            <tr><td>/job create</td><td>Criar um novo negócio</td></tr>
-        </table>
+            <h3>Lojas de Baú (Chest Shops)</h3>
+            <table>
+                <tr><th>Ação</th><th>O que acontece</th></tr>
+                <tr><td>Botão direito na placa</td><td>Compra ou Venda do item</td></tr>
+                <tr><td>Shift + Botão direito</td><td>Verifica preço e estoque (Seguro)</td></tr>
+            </table>
 
-        <div class="important-alert">
-            <strong>❗ AVISO:</strong> Sempre use SHIFT + CLIQUE DIREITO para verificar preços em lojas de baú!
+            <div class="important-box">
+                <strong>❗⚠️ IMPORTANTE:</strong> SEMPRE VERIFIQUE A LOJA COM SHIFT + CLIQUE DIREITO. NÃO DAMOS SUPORTE PARA COMPRAS POR ENGANO.
+            </div>
+
+            <p><strong>Criar Loja:</strong> <code>/shop create buy <item> <quantidade> <preco></code></p>
+            
+            <h3>Negócios e Empregos</h3>
+            <p>Crie sua empresa com <code>/job create <nome></code> e contrate jogadores com <code>/job contratar</code>.</p>
+            <p>Dívidas de taxas ou salários são pagas automaticamente ao receber dinheiro (<code>/dividas list</code>).</p>
         </div>
 
-        <h3>🛠️ Modlist Coxanis</h3>
-        <div class="mod-card"><span>Create</span> <a href="https://www.curseforge.com/minecraft/mc-mods/create" target="_blank">Página Oficial</a></div>
-        <div class="mod-card"><span>Mekanism</span> <a href="https://www.curseforge.com/minecraft/mc-mods/mekanism" target="_blank">Página Oficial</a></div>
-        <div class="mod-card"><span>Uno no Minecraft</span> <a href="https://www.curseforge.com/minecraft/mc-mods/uno" target="_blank">Página Oficial</a></div>
-        <div class="mod-card"><span>Drink Beer Refill</span> <a href="https://www.curseforge.com/minecraft/mc-mods/drink-beer-refill" target="_blank">Página Oficial</a></div>
+        <hr>
+
+        <div id="pagamentos">
+            <h2>💳 Guia do Jogador — Sistema de Pagamentos PIX</h2>
+            <p>O sistema permite comprar benefícios diretamente via PIX pelo Mercado Pago.</p>
+
+            <div class="info-box">
+                <strong>Como Comprar:</strong> Digite <code>/loja</code> ou <code>/pix</code> para abrir o menu de categorias.
+            </div>
+
+            <h4>Passo a Passo:</h4>
+            <ol>
+                <li>Escolha o produto e selecione o método Mercado Pago.</li>
+                <li>Você receberá um <strong>Mapa com QR Code</strong> em sua mão.</li>
+                <li>Escaneie o QR Code ou use o link enviado no chat.</li>
+                <li>Você tem 15 minutos para pagar. A entrega é automática em até 60s após a confirmação.</li>
+            </ol>
+
+            <div class="important-box">
+                <strong>⚠️ AVISO:</strong> Alguns itens exigem que seu inventário esteja <strong>TOTALMENTE LIMPO</strong> antes da compra.
+            </div>
+        </div>
+
+        <hr>
+
+        <div id="modlist">
+            <h2>🛠️ MODLIST COXANIS (Principais Mods)</h2>
+            <p>Conheça os mods por categoria (talvez tenhamos esquecido alguns... kkk..):</p>
+
+            <h4>⚔️ Bosses & Skills</h4>
+            <div class="mod-card"><span>Improvable Skills</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Bosses of Mass Destruction</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>L_Ender's Cataclysm</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Marium's Soulslike Weaponry</span> <a href="#">Página oficial</a></div>
+
+            <h4>⚙️ Industriais</h4>
+            <div class="mod-card"><span>Create & Mekanism</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Applied Energistics 2 (AE2)</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Industrial Foregoing / Thermal</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Immersive Engineering</span> <a href="#">Página oficial</a></div>
+
+            <h4>⚽ Esportes & Lazer</h4>
+            <div class="mod-card"><span>Skate / Futebol / Basquete / Golf</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Parkour (ParCool)</span> <a href="#">Página oficial</a></div>
+
+            <h4>💬 Interação & Social</h4>
+            <div class="mod-card"><span>Voice Chat & Emotes</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>UNO no Minecraft / Jogar Dados</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Cameras / Pinturas / Músicas</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Trade / Reviver Players</span> <a href="#">Página oficial</a></div>
+
+            <h4>🍺 Comidas & Bebidas</h4>
+            <div class="mod-card"><span>Drink Beer Refill / Croptopia</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Farmer's Delight</span> <a href="#">Página oficial</a></div>
+
+            <h4>🚗 Veículos & Mobs</h4>
+            <div class="mod-card"><span>Immersive Vehicles</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Vehicle (Editado por Bhoske)</span> <a href="#">Página oficial</a></div>
+            <div class="mod-card"><span>Rats / Naturalist / Enemy Exp.</span> <a href="#">Página oficial</a></div>
+        </div>
 
         <hr>
         <p><strong>Staff:</strong> Bhoske, GodFetus, Hellzone</p>
-        <p><strong>Créditos:</strong> Criado por Bhoske.</p>
+        <p><strong>Créditos:</strong> Sistemas desenvolvidos por Bhoske (github: brunohoske)</p>
     </div>
 
     <footer>
-        <p>© 2026 Coxinha City | Criado para a comunidade do Gabriel.</p>
+        <p>© 2026 Coxinha City - Todos os direitos reservados.</p>
+        <span class="zyver-tech">Site criado por Equipe Zyver Tech</span>
     </footer>
 </div>
 
 <script>
-    // Função para copiar o IP
+    // FUNÇÃO COPIAR IP
     function copyIp() {
-        const ip = "enx-cirion-106.enx.host:10001";
+        const ip = document.getElementById('serverIp').innerText;
         navigator.clipboard.writeText(ip).then(() => {
-            alert("IP Copiado!");
+            alert("IP Copiado com sucesso!");
         });
     }
 
-    // Lógica da Música
+    // CONTROLE DE ÁUDIO
     const music = document.getElementById('bgMusic');
     const btn = document.getElementById('playPauseBtn');
 
@@ -227,6 +350,5 @@
         }
     }
 </script>
-
 </body>
 </html>
