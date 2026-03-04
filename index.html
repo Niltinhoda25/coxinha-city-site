@@ -1,178 +1,232 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coxinha City | Servidor Oficial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coxinha City - Servidor do Gabriel</title>
+    <style>
+        /* CSS - Estilização Visual */
+        :root {
+            --primary-color: #f39c12;
+            --bg-dark: rgba(0, 0, 0, 0.85);
+            --text-color: #e0e0e0;
+            --accent-color: #e74c3c;
+            --mc-green: #2ecc71;
+        }
 
-<<<<<<< HEAD
-=======
-<!-- Fonte pixel legível -->
->>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* CONFIGURAÇÃO DO GIF DE FUNDO */
+            background: url('fundo.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.6); /* Camada para escurecer o GIF e facilitar leitura */
+            min-height: 100vh;
+        }
+
+        /* PLAYER DE MÚSICA FLUTUANTE */
+        #music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #222;
+            border: 2px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-btn {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            color: var(--primary-color);
+            text-shadow: 4px 4px 0px #000;
+            margin: 0;
+        }
+
+        .server-info {
+            background: var(--bg-dark);
+            display: inline-block;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid var(--primary-color);
+            margin-top: 30px;
+        }
+
+        .ip-box {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            background: #111;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            border: 1px dashed #f39c12;
+            color: #fff;
+        }
+
+        .btn-copy {
+            background: var(--mc-green);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background: var(--bg-dark);
+            border-radius: 15px;
+            margin-bottom: 100px;
+            box-shadow: 0 0 30px rgba(0,0,0,1);
+        }
+
+        h2, h3, h4 { color: var(--primary-color); border-bottom: 1px solid #444; padding-bottom: 10px; }
+        
+        .mod-card {
+            background: #1a1a1a;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mod-card a {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
+        th { background: #222; }
+
+        .important-alert {
+            background: rgba(192, 57, 43, 0.3);
+            border: 2px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        footer { text-align: center; padding: 40px; background: #000; font-size: 0.9rem; }
+    </style>
 </head>
-
 <body>
 
-<<<<<<< HEAD
-=======
-<!-- Música -->
->>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
-<audio id="bgm" loop>
-  <source src="fungo.mp3" type="audio/mpeg">
-</audio>
-
-<header>
-  <div class="logo">COXINHA CITY</div>
-  <nav>
-    <a href="#vip">VIP</a>
-    <a href="#economia">Economia</a>
-    <a href="#pagamentos">Pagamentos</a>
-    <a href="#modlist">Modlist</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="overlay"></div>
-
-  <div class="hero-content">
-    <h1>COXINHA CITY</h1>
-    <p>Economia • Empresas • Mods • PIX • Veículos</p>
-
-    <div class="buttons">
-      <button onclick="copyIP()" class="copy-ip">Copiar IP</button>
-      <button onclick="toggleMusic()" class="music-btn">🔊 Música</button>
+<div class="overlay">
+    <div id="music-player">
+        <span style="font-size: 13px; font-weight: bold;">📻 RÁDIO COXINHA:</span>
+        <button class="music-btn" id="playPauseBtn" onclick="toggleMusic()">Tocar</button>
+        <audio id="bgMusic" loop>
+            <source src="fungo.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
-<<<<<<< HEAD
-=======
-    <!-- GIF -->
->>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
-    <div class="gif-box">
-      <div class="tenor-gif-embed"
-           data-postid="6517990275004061626"
-           data-share-method="host"
-           data-aspect-ratio="0.638554"
-<<<<<<< HEAD
-           data-width="180">
-      </div>
-    </div>
-  </div>
-</section>
+    <header>
+        <h1>Coxinha City</h1>
+        <p style="font-size: 1.4rem;">Servidor do Gabriel | Forge 1.20.1</p>
+        
+        <div class="server-info">
+            <div class="ip-box">enx-cirion-106.enx.host:10001</div>
+            <button class="btn-copy" onclick="copyIp()">COPIAR IP</button>
+        </div>
+    </header>
 
-<section id="vip" class="wiki-section">
-<h2>PLANOS VIP</h2>
-<div class="card">
-VIPs disponíveis dentro do jogo via /comprar
+    <div class="container">
+        <h2>📖 Coxinha City Wiki</h2>
+        <p>Bem-vindo à wiki oficial do servidor <strong>Coxinha City</strong>!</p>
+        <p style="color: var(--accent-color);"><i>Wiki ainda em desenvolvimento!!!</i></p>
+
+        <h3>💰 Economia & Negócios</h3>
+        <table>
+            <tr><th>Comando</th><th>Função</th></tr>
+            <tr><td>/bal</td><td>Ver saldo atual</td></tr>
+            <tr><td>/job create</td><td>Criar um novo negócio</td></tr>
+        </table>
+
+        <div class="important-alert">
+            <strong>❗ AVISO:</strong> Sempre use SHIFT + CLIQUE DIREITO para verificar preços em lojas de baú!
+        </div>
+
+        <h3>🛠️ Modlist Coxanis</h3>
+        <div class="mod-card"><span>Create</span> <a href="https://www.curseforge.com/minecraft/mc-mods/create" target="_blank">Página Oficial</a></div>
+        <div class="mod-card"><span>Mekanism</span> <a href="https://www.curseforge.com/minecraft/mc-mods/mekanism" target="_blank">Página Oficial</a></div>
+        <div class="mod-card"><span>Uno no Minecraft</span> <a href="https://www.curseforge.com/minecraft/mc-mods/uno" target="_blank">Página Oficial</a></div>
+        <div class="mod-card"><span>Drink Beer Refill</span> <a href="https://www.curseforge.com/minecraft/mc-mods/drink-beer-refill" target="_blank">Página Oficial</a></div>
+
+        <hr>
+        <p><strong>Staff:</strong> Bhoske, GodFetus, Hellzone</p>
+        <p><strong>Créditos:</strong> Criado por Bhoske.</p>
+    </div>
+
+    <footer>
+        <p>© 2026 Coxinha City | Criado para a comunidade do Gabriel.</p>
+    </footer>
 </div>
-=======
-           data-width="100%">
-      </div>
-    </div>
 
-  </div>
-</section>
+<script>
+    // Função para copiar o IP
+    function copyIp() {
+        const ip = "enx-cirion-106.enx.host:10001";
+        navigator.clipboard.writeText(ip).then(() => {
+            alert("IP Copiado!");
+        });
+    }
 
-<section id="vip" class="center-section">
-  <h2>PLANOS VIP</h2>
+    // Lógica da Música
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('playPauseBtn');
 
-  <div class="vip-container">
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+            btn.innerHTML = "Pausar";
+            btn.style.background = "#e74c3c";
+        } else {
+            music.pause();
+            btn.innerHTML = "Tocar";
+            btn.style.background = "#f39c12";
+        }
+    }
+</script>
 
-    <div class="vip-card">
-      <h3>VIP 1</h3>
-      <p>+8 Terrenos</p>
-      <p>+$300.000</p>
-      <p>Prioridade Entrada</p>
-    </div>
-
-    <div class="vip-card destaque">
-      <h3>VIP 2</h3>
-      <p>Tudo do VIP 1</p>
-      <p>+15 Terrenos</p>
-      <p>Loja VIP</p>
-    </div>
-
-    <div class="vip-card">
-      <h3>VIP 3</h3>
-      <p>Tudo do VIP 1 e 2</p>
-      <p>+25 Terrenos</p>
-      <p>TAG Personalizada</p>
-    </div>
-
-  </div>
->>>>>>> ad908047f3b1230fab9c497a40e6908454f37386
-</section>
-
-<section id="economia" class="wiki-section">
-<h2>💰 Economia & Capitalismo</h2>
-<div class="card scroll-box">
-<p><b>©Credits:</b> Criado por Bhoske (github: brunohoske)</p>
-<p>Use /bal para ver saldo</p>
-<p>/pay jogador valor</p>
-<p>/shop create buy ou sell</p>
-<p>/job create nome</p>
-<p>/dividas list</p>
-<p>/historico</p>
-<p>⚠️ Sempre use SHIFT + botão direito para verificar lojas.</p>
-</div>
-</section>
-
-<section id="pagamentos" class="wiki-section">
-<h2>💳 Pagamentos PIX</h2>
-<div class="card scroll-box">
-<p>Abra com /loja ou /comprar</p>
-<p>Escolha produto</p>
-<p>Gere QR Code</p>
-<p>Pague via Mercado Pago</p>
-<p>Entrega automática</p>
-<p>Prazo 15 minutos</p>
-<p>Apenas PIX</p>
-</div>
-</section>
-
-<section id="modlist" class="wiki-section">
-<h2>📦 MODLIST COXANIS</h2>
-
-<input type="text" id="searchMod" placeholder="🔎 Pesquisar mod..." onkeyup="searchMods()" class="search-box">
-
-<div class="card scroll-box modlist">
-
-<h3>Skills</h3>
-<ul>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/improvable-skills" target="_blank">Improvable Skills</a></li>
-</ul>
-
-<h3>Bosses</h3>
-<ul>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/bosses-of-mass-destruction" target="_blank">Bosses of Mass Destruction</a></li>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/mariums-soulslike-weaponry" target="_blank">Marium's Soulslike Weaponry</a></li>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/lendercataclysm" target="_blank">L_Ender's Cataclysm</a></li>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/bossesrise" target="_blank">Bosse's Rises</a></li>
-</ul>
-
-<h3>Industriais</h3>
-<ul>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/create" target="_blank">Create</a></li>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/mekanism" target="_blank">Mekanism</a></li>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2" target="_blank">AE2</a></li>
-</ul>
-
-<h3>Veículos</h3>
-<ul>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/skate" target="_blank">Skate</a></li>
-<li>Vehicle (Versão editada por Bhoske) → Baixe no Discord</li>
-<li><a href="https://www.curseforge.com/minecraft/mc-mods/mts" target="_blank">Immersive Vehicles</a></li>
-</ul>
-
-</div>
-</section>
-
-<a href="https://discord.com/invite/DqV94NrHJb" target="_blank" class="discord-btn">Discord</a>
-
-<footer>© 2026 Coxinha City</footer>
-
-<script src="script.js"></script>
-<script async src="https://tenor.com/embed.js"></script>
 </body>
 </html>
