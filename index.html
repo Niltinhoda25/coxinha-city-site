@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coxinha City - Servidor do Gabriel</title>
     <style>
-        /* IMPORTAÇÃO DA FONTE ESTILO MINECRAFT */
-        /* Se você não tiver o arquivo .ttf, ele usará a fonte padrão do sistema */
         @font-face {
             font-family: 'Minecrafter';
             src: url('minecrafter.ttf') format('truetype');
@@ -22,6 +20,7 @@
             --warning-red: #e74c3c;
             --info-blue: #3498db;
             --zyver-color: #00d2ff;
+            --discord-color: #7289da;
         }
 
         html { scroll-behavior: smooth; }
@@ -36,9 +35,59 @@
             line-height: 1.6;
         }
 
+        /* --- TELA DE CARREGAMENTO COM O GIF --- */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .loader-gif {
+            width: 80px; /* Tamanho pequeno como solicitado */
+            height: auto;
+            margin-bottom: 10px;
+            image-rendering: pixelated; /* Mantém o estilo Minecraft */
+        }
+
+        .loading-text {
+            font-family: 'Minecrafter', 'Courier New', Courier, monospace;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px #555;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 30px;
+            border: 4px solid #555;
+            padding: 3px;
+            background: #000;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--mc-green);
+            animation: loadProgress 3s forwards cubic-bezier(0, 0, 0.6, 1);
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        /* ------------------------------------------- */
+
         .overlay { background-color: rgba(0, 0, 0, 0.6); min-height: 100vh; }
 
-        /* MENU DE NAVEGAÇÃO */
         nav {
             position: fixed;
             top: 0;
@@ -47,27 +96,30 @@
             border-bottom: 2px solid var(--primary-color);
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             padding: 15px 0;
             z-index: 2000;
+            flex-wrap: wrap;
         }
 
         .nav-btn {
             background: transparent;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 8px 15px;
+            padding: 8px 12px;
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;
             transition: 0.3s;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
         }
 
         .nav-btn:hover { background: var(--primary-color); color: black; }
 
-        /* PLAYER DE MÚSICA */
+        .nav-discord { border-color: var(--discord-color); color: var(--discord-color); }
+        .nav-discord:hover { background: var(--discord-color); color: white; }
+
         #music-player {
             position: fixed;
             bottom: 20px;
@@ -92,10 +144,9 @@
             border-radius: 5px;
         }
 
-        /* HEADER E ANIMAÇÃO */
         header {
             text-align: center;
-            padding: 120px 20px 60px 20px;
+            padding: 160px 20px 60px 20px;
             background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
         }
 
@@ -142,12 +193,24 @@
             cursor: pointer;
             border-radius: 5px;
             width: 100%;
-            transition: 0.2s;
+            margin-bottom: 10px;
         }
 
-        .btn-copy:hover { transform: scale(1.05); }
+        .btn-discord-main {
+            display: block;
+            background: var(--discord-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
 
-        /* CONTEÚDO */
+        .btn-discord-main:hover { background: #5b6eae; transform: scale(1.05); }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -156,11 +219,56 @@
             border-radius: 15px;
             margin-bottom: 50px;
             scroll-margin-top: 100px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
         h2, h3, h4 { color: var(--primary-color); border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px; }
         
+        .rule-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .important-box {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid var(--warning-red);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .faq-item {
+            background: #1a1a1a;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        .faq-question {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            background: #222;
+            transition: 0.3s;
+        }
+        .faq-question:hover { background: #2a2a2a; color: var(--primary-color); }
+        .faq-answer {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background: #151515;
+            color: #bbb;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 15px;
+        }
+
         .mod-card {
             background: #1a1a1a;
             padding: 10px 15px;
@@ -173,145 +281,176 @@
 
         .mod-card a { color: var(--info-blue); text-decoration: none; font-weight: bold; font-size: 0.85rem; }
 
-        .important-box {
-            background: rgba(231, 76, 60, 0.2);
-            border: 2px solid var(--warning-red);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .info-box {
-            background: rgba(52, 152, 219, 0.2);
-            border: 2px solid var(--info-blue);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         th, td { border: 1px solid #444; padding: 10px; text-align: left; }
-        th { background-color: #222; color: var(--primary-color); }
+        th { background-color: #222; }
 
         footer { text-align: center; padding: 40px; background: #000; border-top: 2px solid #222; }
-        .zyver-tech { color: var(--zyver-color); font-weight: bold; margin-top: 10px; display: block; letter-spacing: 1px; }
+        .zyver-tech { color: var(--zyver-color); font-weight: bold; margin-top: 10px; display: block; }
     </style>
 </head>
 <body>
 
+<div id="loader">
+    <img src="Fight Popcorn GIF.gif" class="loader-gif" alt="Minecraft Loading">
+    <div class="loading-text">CONSTRUINDO TERRENO...</div>
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+</div>
+
 <div class="overlay">
     <nav>
+        <a href="#regras" class="nav-btn">📜 Regras RP</a>
+        <a href="#faq" class="nav-btn">❓ FAQ</a>
         <a href="#economia" class="nav-btn">💰 Economia</a>
         <a href="#pagamentos" class="nav-btn">💳 Pagamentos</a>
         <a href="#modlist" class="nav-btn">🛠️ Modlist</a>
+        <a href="https://discord.com/invite/DqV94NrHJb" target="_blank" class="nav-btn nav-discord">💬 Discord</a>
     </nav>
 
     <div id="music-player">
         <span style="font-size: 12px; font-weight: bold;">📻 RÁDIO:</span>
         <button class="music-btn" id="playPauseBtn" onclick="toggleMusic()">Tocar</button>
-        <audio id="bgMusic" loop>
-            <source src="fungo.mp3" type="audio/mpeg">
-        </audio>
+        <audio id="bgMusic" loop><source src="fungo.mp3" type="audio/mpeg"></audio>
     </div>
 
     <header>
         <h1 class="minecraft-title">Coxinha City</h1>
-        <p style="font-size: 1.2rem;">Servidor do Gabriel | Forge 1.20.1</p>
+        <p>Servidor do Gabriel | Forge 1.20.1</p>
         <div class="server-info">
             <div class="ip-box" id="serverIp">enx-cirion-106.enx.host:10001</div>
             <button class="btn-copy" onclick="copyIp()">COPIAR IP</button>
+            <a href="https://discord.com/invite/DqV94NrHJb" target="_blank" class="btn-discord-main">Entrar no Discord</a>
         </div>
     </header>
 
     <div class="container">
+
+        <div id="regras">
+            <h2>📜 REGRAS DE COXANIS Roleplay!!!!</h2>
+            <div class="rule-item"><strong>1:</strong> A CIDADE E ROLEPLAY, SEJA EDUCADO INTERAJA, RESPEITE OS OUTROS, QUALQUER COISA FORA DISSO SERA ADVERTIDO, E PROIBIDO ROUBAR, E MATAR SEM MOTIVO, NAO VAI SER CONVERSADO SE VISTO, NAO FACA NADA DE SERVER ANARQUICO! QUEBRAR CONSTRUCOES E POR AI VAI, QUALQUER DESRESPEITO A ISSO OU DEBOCHE E SEM CONVERSA, VAI TOMAR PUNICAO</div>
+            <div class="rule-item"><strong>2:</strong> SEM FICAR XINGANDO MUITO, NAO COLOCAR MUSICA ENQUANTO OS STREAMERS ESTIVEREM EM LIVE ISSO TAMBEM SERA ADVERTIDO, OU QUAISQUER BARULHOS, MICROFONE SEMPRE NO PUSH TO TALK, SEM RETORNO OU ECO</div>
+            <div class="rule-item"><strong>3:</strong> VOCE NAO E OBRIGADO A INTREPERTAR UM PERSONAGEM SO TENTE NAO QUEBRAR A IMERSAO E TRATE TODOS COM RESPEITO!</div>
+            <div class="rule-item"><strong>4:</strong> QUALQUER DESRESPEITO OU ZARALHO, DE NAO LEVAR A SERIO SER LEVADO PRA PRISAO E A ADIVERTENCIA DA PRISAO, TOMARA PUNICAO! AGUARDE TE DIZEREM O PORQUE VOCE ESTA SENDO PUNIDO, ENCHER O SACO IRA AUMENTAR A PUNICAO!</div>
+            <div class="rule-item"><strong>5:</strong> O SISTEMA DE PUNICAO: 3 ADVERTENCIAS BAN PERMANENTE, SEM CONSEGUIR VOLTAR COM OUTRO NICK OU CONTA, PARA CASOS MAIS EXTREMOS NEM DAREMOS ADVERTENCIA SERA PUNIDO DIRETAMENTE!</div>
+            <div class="rule-item"><strong>6:</strong> NADA DE FICAR INTERROMPENDO O CONTEUDO DE STREAMERS, FALANDO OU FORCANDO INTERACOES SO PRA APARECER NA LIVE, TOMARA PUNICAO SE FIZER ISSO!</div>
+            <div class="rule-item"><strong>7:</strong> SE FIZER ALGO BOBO E MELHOR PEDIR DESCULPAS E ASSUMIR O QUE FEZ, SE NAO PIORA A PUNICAO! NAO TEREMOS DO DE QUEM ESTA AQUI PRA ATRAPALHAR O DIVERTIMENTO DOS OUTROS</div>
+            <div class="rule-item"><strong>8:</strong> AS REGRAS SE APLICAM A TODOS ESTAMOS SEMPRE OBSERVANDO E GRAVANDO, ENTAO NAO SE FACA DE BOBO, NADA DE RACISMO, HOMOFOBIA, XENOFOBIA, NEM FICAR CITANDO O BISTECONE! A CIDADE E DO GABRIEL</div>
+            <div class="rule-item"><strong>9:</strong> NAO FICAR PERTUBANDO NINGUEM, NEM IRRITANDO DE PROPOSITO, AINDA MAIS SE FOR COM CRIANCAS, NAO ACEITAMOS ISSO AQUI!</div>
+            <div class="rule-item"><strong>10:</strong> QUALQUER TIPO DE ITEM DE VOO E PROIBIDO, SO ELYTRA PODE!, PRA EVITAR LAG, E AINDA MAIS QUANDO OS STREAMERS ESTIVEREM EM LIVE, SERAO ADICIONADAS OPCOES PRA VOCES USAREM NO FUTURO, MAS MESMO ASSIM NAO NA FRENTE DELES! PRA NAO PERDER A IRMERSAO</div>
+            <div class="rule-item"><strong>11:</strong> POR FAVOR, NAO CRIAR OUTRAS CONTAS, OU USAR CONTA DE IRMAO PRA CONSEGUIR MAIS CLAIM, SE VIRMOS 2 CONTA NO MESMO IP SEM AS DUAS ANDANDO E JOGANDO AO MESMO TEMPO, IGUAL REALMENTE TEM ALGUNS IRMAOS AI E SAO 2 PESSOAS DIFERENTE, SE NAO FOR ISSO IRA TOMAR ADIVERTENCIA!, NADA DE PEGAR CONSTRUCOES DO PESSOAL SEM FALAR COM A PESSOA ANTES, POIS SE RECLAMACOES CHEGAREM EM MIN, IRA TOMAR ADVERTENCIA!</div>
+            <div class="rule-item"><strong>12:</strong> TENHA SENSO COMUN, SE A FARM DE VILAGER ESTIVER LAGANDO O FPS, ELA IRA LAGAR O SERVER, EVITE FAZER MUITO GRANDE, SE ESTIVER GRANDE E LAGANDO DIMINUA, POIS NAO A NECESSIDADE DE TER TANTAS COISAS NO MOMENTO, EVITE O EXAGERO, SO SERA AVISADO UMA VEZ, SE MANTER RECEBERA ADVERTENCIA!</div>
+            <div class="rule-item"><strong>13:</strong> SO PRA RELEMBRAR, CASAS INATIVAS POR MAIS DE 1 SEMANA SEM EXPLICACAO, SERAO REMOVIDAS, AINDA MAIS NA CIDADE, PRA LIBERAR ESPACO PRA OUTRAS PESSOAS QUE ESTAO JOGANDO DIARIAMENTE</div>
+            <div class="rule-item"><strong>14:</strong> E EXTRITAMENTE PROIBIDO, AS COISAS QUE SITAREI A BAIXO! SE NAO RESPEITAR LEVARA ADVERTENCIA! E TERA QUE DIMINUIR NA MAO, A MAIORIA DOS BLOCOS SERA LIMITADO PRA EVITAR LAG, SE TENTAREM ABUSAR IREMOS BANIR O ITEM! TENHAM BOM SENSO</div>
+        </div>
+
+        <hr>
+
+        <div id="faq">
+            <h2>❓ Perguntas Frequentes (FAQ)</h2>
+            <div class="faq-item">
+                <div class="faq-question">Como eu ganho Claim para proteger minha casa? <span>+</span></div>
+                <div class="faq-answer">Você ganha blocos de claim jogando no servidor! Quanto mais tempo online, mais área você pode proteger. Use a Pá de Ouro para marcar os cantos do seu terreno.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Como entro para a Polícia ou Prefeitura? <span>+</span></div>
+                <div class="faq-answer">Essas são funções de Roleplay. Fique atento aos anúncios no Discord e interaja com os atuais governantes ou chefes de polícia dentro do jogo!</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Onde baixo o Modpack oficial? <span>+</span></div>
+                <div class="faq-answer">O link direto e as instruções de instalação estão no canal #downloads do nosso Discord oficial.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Meu pedido de PIX não chegou, o que eu faço? <span>+</span></div>
+                <div class="faq-answer">O sistema leva até 60 segundos para processar após o pagamento. Se passar de 5 minutos, abra um ticket no Discord com o comprovante em mãos para a staff resolver.</div>
+            </div>
+        </div>
+
+        <hr>
+
         <div id="economia">
             <h2>💰 Guia do Jogador — Sistema de Economia</h2>
-            <p>Este guia explica tudo sobre saldo, lojas de baú, negócios e empregos.</p>
-            
-            <h3>Saldo e Pagamentos</h3>
+            <p><strong>Comandos Principais:</strong></p>
             <ul>
-                <li>Ver seu saldo: <code>/bal</code></li>
-                <li>Ver ranking: <code>/baltop</code></li>
-                <li>Pagar jogador: <code>/pay <jogador> <valor></code></li>
+                <li><code>/bal</code> - Ver seu saldo</li>
+                <li><code>/baltop</code> - Ranking de ricaços</li>
+                <li><code>/pay <jogador> <valor></code> - Enviar dinheiro</li>
             </ul>
-
-            <h3>Lojas de Baú (Chest Shops)</h3>
+            <h4>🛒 Lojas de Baú (Chest Shops)</h4>
             <table>
                 <tr><th>Ação</th><th>O que acontece</th></tr>
-                <tr><td>Botão direito na placa</td><td>Compra ou Venda do item</td></tr>
-                <tr><td>Shift + Botão direito</td><td>Verifica preço e estoque (Seguro)</td></tr>
+                <tr><td>Botão direito na placa</td><td>Compra ou Venda</td></tr>
+                <tr><td>Shift + botão direito</td><td>Ver detalhes (Preço/Item)</td></tr>
             </table>
-
             <div class="important-box">
-                <strong>❗⚠️ IMPORTANTE:</strong> SEMPRE VERIFIQUE A LOJA COM SHIFT + CLIQUE DIREITO. NÃO DAMOS SUPORTE PARA COMPRAS POR ENGANO.
+                <strong>❗⚠️ IMPORTANTE:</strong> SEMPRE VERIFIQUE A LOJA COM SHIFT + BOTÃO DIREITO. NÃO DAMOS SUPORTE PARA COMPRAS ERRADAS POR FALTA DE VERIFICAÇÃO.
             </div>
-
-            <p><strong>Criar Loja:</strong> <code>/shop create buy <item> <quantidade> <preco></code></p>
-            
-            <h3>Negócios e Empregos</h3>
-            <p>Crie sua empresa com <code>/job create <nome></code> e contrate jogadores com <code>/job contratar</code>.</p>
-            <p>Dívidas de taxas ou salários são pagas automaticamente ao receber dinheiro (<code>/dividas list</code>).</p>
+            <p><strong>Criar Loja:</strong> <code>/shop create buy <item> <qtd> <preco></code></p>
+            <h4>🏢 Negócios e Empregos</h4>
+            <ul>
+                <li><strong>Criar Negócio:</strong> <code>/job create <nome></code></li>
+                <li><strong>Ver seus Negócios:</strong> <code>/job myBusiness list</code></li>
+                <li><strong>Contratar:</strong> <code>/job contratar <negocio> <player> <salario> <frequencia></code></li>
+                <li><strong>Frequências:</strong> diario, semanal ou mensal</li>
+                <li><strong>Dívidas:</strong> <code>/dividas list</code> (Pagamento automático ao receber dinheiro)</li>
+            </ul>
         </div>
 
         <hr>
 
         <div id="pagamentos">
             <h2>💳 Guia do Jogador — Sistema de Pagamentos PIX</h2>
-            <p>O sistema permite comprar benefícios diretamente via PIX pelo Mercado Pago.</p>
-
-            <div class="info-box">
-                <strong>Como Comprar:</strong> Digite <code>/loja</code> ou <code>/pix</code> para abrir o menu de categorias.
-            </div>
-
-            <h4>Passo a Passo:</h4>
+            <p>©️Credits: Criado por Bhoske (github: brunohoske)</p>
+            <p>O sistema de PIX permite que você compre itens, kits e benefícios diretamente no jogo usando PIX — sem sair do Minecraft. O pagamento é processado pelo Mercado Pago e a entrega é automática.</p>
+            <h4>Como abrir a loja</h4>
+            <p>Use qualquer um dos comandos abaixo: <code>/loja</code>, <code>/shop</code>, <code>/comprar</code>, <code>/pix</code></p>
+            <h4>Realizando uma compra</h4>
             <ol>
-                <li>Escolha o produto e selecione o método Mercado Pago.</li>
-                <li>Você receberá um <strong>Mapa com QR Code</strong> em sua mão.</li>
-                <li>Escaneie o QR Code ou use o link enviado no chat.</li>
-                <li>Você tem 15 minutos para pagar. A entrega é automática em até 60s após a confirmação.</li>
+                <li>Escolha uma categoria e um produto.</li>
+                <li>Escolha o método <strong>Mercado Pago</strong>.</li>
+                <li>Um <strong>Mapa com QR Code</strong> aparecerá na sua mão.</li>
+                <li>Escaneie o QR Code ou use o link no chat.</li>
+                <li>O sistema verifica o status a cada 60 segundos automaticamente.</li>
             </ol>
-
-            <div class="important-box">
-                <strong>⚠️ AVISO:</strong> Alguns itens exigem que seu inventário esteja <strong>TOTALMENTE LIMPO</strong> antes da compra.
-            </div>
+            <div class="important-box"><strong>❗ Atenção — inventário limpo:</strong> Alguns produtos exigem que seu inventário esteja vazio. Se não estiver, você verá: "Seu inventário deve estar limpo para fazer um pedido."</div>
+            <div class="important-box"><strong>❗ Atenção — pedido em andamento:</strong> Você só pode ter um pedido ativo por vez.</div>
+            <h4>Após o pagamento</h4>
+            <p>O servidor irá remover o mapa, tocar um som, exibir o título "PEDIDO ENTREGUE" e executar os comandos de recompensa automaticamente.</p>
+            <p><strong>Pedido expirado:</strong> Após 15 minutos sem pagamento, o pedido expira e você pode tentar de novo.</p>
         </div>
 
         <hr>
 
         <div id="modlist">
-            <h2>🛠️ MODLIST COXANIS (Principais Mods)</h2>
-            <p>Conheça os mods por categoria (talvez tenhamos esquecido alguns... kkk..):</p>
-
-            <h4>⚔️ Bosses & Skills</h4>
-            <div class="mod-card"><span>Improvable Skills</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Bosses of Mass Destruction</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>L_Ender's Cataclysm</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Marium's Soulslike Weaponry</span> <a href="#">Página oficial</a></div>
-
-            <h4>⚙️ Industriais</h4>
-            <div class="mod-card"><span>Create & Mekanism</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Applied Energistics 2 (AE2)</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Industrial Foregoing / Thermal</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Immersive Engineering</span> <a href="#">Página oficial</a></div>
-
-            <h4>⚽ Esportes & Lazer</h4>
-            <div class="mod-card"><span>Skate / Futebol / Basquete / Golf</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Parkour (ParCool)</span> <a href="#">Página oficial</a></div>
-
-            <h4>💬 Interação & Social</h4>
-            <div class="mod-card"><span>Voice Chat & Emotes</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>UNO no Minecraft / Jogar Dados</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Cameras / Pinturas / Músicas</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Trade / Reviver Players</span> <a href="#">Página oficial</a></div>
-
-            <h4>🍺 Comidas & Bebidas</h4>
-            <div class="mod-card"><span>Drink Beer Refill / Croptopia</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Farmer's Delight</span> <a href="#">Página oficial</a></div>
-
-            <h4>🚗 Veículos & Mobs</h4>
-            <div class="mod-card"><span>Immersive Vehicles</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Vehicle (Editado por Bhoske)</span> <a href="#">Página oficial</a></div>
-            <div class="mod-card"><span>Rats / Naturalist / Enemy Exp.</span> <a href="#">Página oficial</a></div>
+            <h2>🛠️ MODLIST COXANIS (Completa)</h2>
+            <h4>Skills</h4>
+            <div class="mod-card"><span>Improvable Skills</span> <a href="#">Ver</a></div>
+            <h4>Bosses</h4>
+            <div class="mod-card"><span>Bosses of Mass Destruction</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Marium's Soulslike Weaponry</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>L_Ender's Cataclysm</span> <a href="#">Ver</a></div>
+            <h4>Industriais</h4>
+            <div class="mod-card"><span>Create</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Mekanism</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>AE2 (Applied Energistics 2)</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Immersive Engineering</span> <a href="#">Ver</a></div>
+            <h4>Esportes</h4>
+            <div class="mod-card"><span>Skate / Futebol / Basquete / Golf</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Parkour (ParCool)</span> <a href="#">Ver</a></div>
+            <h4>Interação</h4>
+            <div class="mod-card"><span>Voice Chat / Emotes / Emojis</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Tocar Músicas / UNO / Dados</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Trade de itens / Reviver Players</span> <a href="#">Ver</a></div>
+            <h4>Drogas / Comidas</h4>
+            <div class="mod-card"><span>Drink Beer Refill</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>The Durty Stuff / Schedule Craft</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Croptopia / Farmer's Delight</span> <a href="#">Ver</a></div>
+            <h4>Mobs</h4>
+            <div class="mod-card"><span>Rats / Naturalist / Enemy Expansion</span> <a href="#">Ver</a></div>
+            <h4>Veículos</h4>
+            <div class="mod-card"><span>Skate / Immersive Vehicles</span> <a href="#">Ver</a></div>
+            <div class="mod-card"><span>Vehicle (Editado por Bhoske)</span> <a href="#">Ver</a></div>
         </div>
 
         <hr>
@@ -326,27 +465,42 @@
 </div>
 
 <script>
-    // FUNÇÃO COPIAR IP
-    function copyIp() {
-        const ip = document.getElementById('serverIp').innerText;
-        navigator.clipboard.writeText(ip).then(() => {
-            alert("IP Copiado com sucesso!");
+    // LÓGICA DO LOADER (3 segundos para carregar)
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 800);
+        }, 3000); 
+    });
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.parentElement;
+            item.classList.toggle('active');
+            button.querySelector('span').innerText = item.classList.contains('active') ? '-' : '+';
         });
+    });
+
+    function copyIp() {
+        const ip = "enx-cirion-106.enx.host:10001";
+        navigator.clipboard.writeText(ip).then(() => { alert("IP Copiado!"); });
     }
 
-    // CONTROLE DE ÁUDIO
     const music = document.getElementById('bgMusic');
     const btn = document.getElementById('playPauseBtn');
-
     function toggleMusic() {
-        if (music.paused) {
-            music.play();
-            btn.innerHTML = "Pausar";
-            btn.style.background = "#e74c3c";
-        } else {
-            music.pause();
-            btn.innerHTML = "Tocar";
-            btn.style.background = "#f39c12";
+        if (music.paused) { 
+            music.play(); 
+            btn.innerHTML = "Pausar"; 
+            btn.style.background = "#e74c3c"; 
+        } else { 
+            music.pause(); 
+            btn.innerHTML = "Tocar"; 
+            btn.style.background = "#f39c12"; 
         }
     }
 </script>
